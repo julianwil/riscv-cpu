@@ -40,6 +40,18 @@ module control_unit(
                     3'b100: alu_op = 4'b0100; // xor
                 endcase
             end
+
+            // I-type arithmetic
+            7'b0010011: begin
+                alu_src = 1;
+
+                case (funct3): begin
+                    3'b000: alu_op = 4'0000;  // add immediate
+                    3'b111: alu_op = 4'b0010; // and immediate
+                    3'b110: alu_op = 4'b0011; // or immediate
+                    3'b100: alu_op = 4'b0100; // xor immediate
+                end
+            end
         endcase
     end
 
