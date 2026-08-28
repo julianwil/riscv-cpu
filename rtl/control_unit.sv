@@ -1,5 +1,5 @@
 module control_unit(
-    input logic [31:0] instr,
+    input  logic [31:0] instr,
 
     output logic [3:0] alu_op,
     output logic alu_src,
@@ -8,11 +8,12 @@ module control_unit(
     output logic mem_read
 );
 
+    logic [6:0] op;
+    logic [14:12] funct3;
+    logic [31:25] funct7;
+
     assign op = instr[6:0];
-    assign rd = instr[11:7];
     assign funct3 = instr[14:12];
-    assign rs1 = instr[19:15];
-    assign rs2 = instr[24:20];
     assign funct7 = instr[31:25];
 
     always_comb begin
