@@ -1,4 +1,4 @@
 SRC = rtl/*.sv
 
 all:
-	iverilog -g2012 rtl/*.sv
+	iverilog -g2012 -o test $(SRC)
