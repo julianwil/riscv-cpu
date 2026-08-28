@@ -9,8 +9,8 @@ module control_unit(
 );
 
     logic [6:0] op;
-    logic [14:12] funct3;
-    logic [31:25] funct7;
+    logic [2:0] funct3;
+    logic [6:0] funct7;
 
     assign op = instr[6:0];
     assign funct3 = instr[14:12];
@@ -27,6 +27,8 @@ module control_unit(
         case (op)
             // R-type
             7'b0110011: begin
+                reg_write = 1;
+
                 case (funct3)
                     3'b000: begin
                         if (funct7 == 7'b0000000) 
@@ -43,14 +45,15 @@ module control_unit(
 
             // I-type arithmetic
             7'b0010011: begin
+                reg_write = 1;
                 alu_src = 1;
 
-                case (funct3): begin
-                    3'b000: alu_op = 4'0000;  // add immediate
+                case (funct3)
+                    3'b000: alu_op = 4'b0000;  // add immediate
                     3'b111: alu_op = 4'b0010; // and immediate
                     3'b110: alu_op = 4'b0011; // or immediate
                     3'b100: alu_op = 4'b0100; // xor immediate
-                end
+                endcase
             end
         endcase
     end
