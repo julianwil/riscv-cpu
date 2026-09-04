@@ -1,5 +1,5 @@
 module instr_mem(
-    input logic [7:0] addr,
+    input logic [31:0] addr,
 
     output logic [31:0] instr
 );

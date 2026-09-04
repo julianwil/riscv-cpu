@@ -12,8 +12,8 @@ module register_file(
 
     logic [31:0] registers [0:31];
 
-    assign data_rs1 = registers[rs1];
-    assign data_rs2 = registers[rs2];
+    assign data_rs1 = (rs1 == 0) ? 32'b0 : registers[rs1];
+    assign data_rs2 = (rs2 == 0) ? 32'b0 : registers[rs2];
 
     always_ff @(posedge clk) begin
         if (reg_write && rd != 0) begin
