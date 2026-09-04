@@ -6,7 +6,7 @@ module instr_mem(
 
     logic [31:0] imem [0:255];
 
-    assign instr = imem[addr];
+    assign instr = imem[addr >> 2];
 
 endmodule
 
