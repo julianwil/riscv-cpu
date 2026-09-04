@@ -40,6 +40,17 @@ module control_unit(
                     3'b111: alu_op = 4'b0010; // and
                     3'b110: alu_op = 4'b0011; // or
                     3'b100: alu_op = 4'b0100; // xor
+                    3'b001: alu_op = 4'b0101; // <<
+
+                    3'b101: begin
+                        if (funct7 == 7'b0000000)
+                            alu_op = 4'b0110; // >>
+                        else
+                            alu_op = 4'b0111; // >>>
+                    end
+
+                    3'b010: alu_op = 4'b1000;
+                    3'b011: alu_op = 4'b1001;
                 endcase
             end
 
