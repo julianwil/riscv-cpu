@@ -49,8 +49,8 @@ module control_unit(
                             alu_op = 4'b0111; // >>>
                     end
 
-                    3'b010: alu_op = 4'b1000;
-                    3'b011: alu_op = 4'b1001;
+                    3'b010: alu_op = 4'b1000; // a < b
+                    3'b011: alu_op = 4'b1001; // a < b unsigned
                 endcase
             end
 
@@ -60,10 +60,21 @@ module control_unit(
                 alu_src = 1;
 
                 case (funct3)
-                    3'b000: alu_op = 4'b0000;  // add immediate
+                    3'b000: alu_op = 4'b0000; // add immediate
                     3'b111: alu_op = 4'b0010; // and immediate
                     3'b110: alu_op = 4'b0011; // or immediate
                     3'b100: alu_op = 4'b0100; // xor immediate
+                    3'b001: alu_op = 4'b0101; // << immediate
+
+                    3'b101: begin
+                        if (funct7 == 7'b0000000)
+                            alu_op = 4'b0110; // >> immediate
+                        else
+                            alu_op = 4'b0111; // >>> immediate
+                    end
+
+                    3'b010: alu_op = 4'b1000; // a < imm
+                    3'b011: alu_op = 4'b1001; // a < imm unsigned
                 endcase
             end
         endcase
